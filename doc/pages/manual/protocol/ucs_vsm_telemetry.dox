@@ -53,9 +53,13 @@ Registering different semantic for these values will lead to undesired results.
 | field_of_view | FIELD_SEMANTIC_NUMERIC | Camera |  |
 | flight_mode | FIELD_SEMANTIC_FLIGHT_MODE | FC |  |
 | gcs_link_quality | FIELD_SEMANTIC_LINK_QUALITY | FC |  |
+| gimbal_roll | FIELD_SEMANTIC_ROLL | GIMBAL | Gimbal roll in earth frame in degrees. |
+| gimbal_pitch | FIELD_SEMANTIC_PITCH | GIMBAL | Gimbal pitch in earth frame in degrees. -90 means looking down, 90 - up. |
+| gimbal_heading | FIELD_SEMANTIC_HEADING | GIMBAL | Gimbal pitch in earth frame in degrees. Zero means north. |
 | gps_fix | FIELD_SEMANTIC_GPS_FIX_TYPE  | FC|  |
 | ground_speed | FIELD_SEMANTIC_GROUND_SPEED |FC | |
 | heading | FIELD_SEMANTIC_HEADING | FC| Yaw relative to North. Range 0..2Pi, East is positive |
+| health_rangefinder | FIELD_SEMANTIC_BOOL | FC| Health status of rangefinder sensor |
 | home_altitude_amsl | FIELD_SEMANTIC_ALTITUDE_AMSL | FC |  |
 | home_altitude_raw | FIELD_SEMANTIC_ALTITUDE_RAW | FC |  |
 | home_latitude | FIELD_SEMANTIC_LATITUDE | FC |  |
@@ -95,6 +99,7 @@ Registering different semantic for these values will lead to undesired results.
 | vibration_x | FIELD_SEMANTIC_NUMERIC | FC |  |
 | vibration_y | FIELD_SEMANTIC_NUMERIC | FC |  |
 | vibration_z | FIELD_SEMANTIC_NUMERIC | FC |  |
+| video_stream_uri | FIELD_SEMANTIC_STRING | Camera |  |
 | winch_connected | FIELD_SEMANTIC_BOOL |  Winch |  |
 
 @section telemetry_sending Sending telemetry data

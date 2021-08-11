@@ -30,10 +30,18 @@ public:
     /** Type of the appropriate Mavlink decoder. */
     typedef Mavlink_decoder Decoder;
 
+    std::string name;
+
     /** Construct Mavlink stream using a I/O stream. */
     Mavlink_stream(Io_stream::Ref stream) :
         stream(stream), decoder()
     {
+        name=stream->Get_name();
+        LOG_DBG("MAVLINK_STREAM CREATED %s", name.c_str());
+    }
+
+    ~Mavlink_stream(){
+        LOG_DBG("MAVLINK_STREAM DESTROYED %s", name.c_str());
     }
 
     /** Disable copy constructor. */
@@ -155,6 +163,11 @@ public:
     void
     Disable()
     {
+        if (vehicle_counter > 0) {
+            LOG_ERR("DISABLING MAV_STREAM %s WHILE V_COUNTER=%d", name.c_str(), vehicle_counter);
+        } else {
+            LOG_DBG("DISABLING MAV_STREAM %s", name.c_str());
+        }
         decoder.Disable();
         demuxer.Disable();
         stream = nullptr;
@@ -164,7 +177,22 @@ public:
         }
     }
 
+    void Increment_vehicle_counter() {
+        vehicle_counter++;
+    }
+
+    void Decrement_vehicle_counter() {
+        vehicle_counter--;
+    }
+
+    int Get_vehicle_counter() {
+        return vehicle_counter;
+    }
+
 private:
+
+    int vehicle_counter {0};
+
     /** Underlying stream. */
     Io_stream::Ref stream;
 

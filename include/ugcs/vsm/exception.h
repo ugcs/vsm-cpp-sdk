@@ -226,6 +226,8 @@ VSM_DEFINE_EXCEPTION(Invalid_op_exception);
 VSM_DEFINE_EXCEPTION(Internal_error_exception);
 /** Exception for system call failure. */
 VSM_DEFINE_EXCEPTION(System_exception);
+/** Altimeter required exception. For certain mission types */
+VSM_DEFINE_EXCEPTION(Altimeter_required_exception);
 
 } /* namespace vsm */
 } /* namespace ugcs */

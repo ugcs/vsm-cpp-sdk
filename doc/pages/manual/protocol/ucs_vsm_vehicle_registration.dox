@@ -14,6 +14,20 @@ Upon detecting a vehicle VSM sends @b Vsm_message with \ref register_device_mess
  - Tell server the mission items supported by device
  - Tell server the commands supported by device
 
+@section vsm_message Vsm_message
+
+|Field name | Field type| Description|
+|---|---|---|
+| device_id | uint32 | Uniquely identifies the connected device. Exception is register_peer payload when this field is zero. This id is generated when Register_device message is created. It defines the context (session) for all subsequent communications with the device (in both directions). |
+| message_id | uint32 | Unique message id. This will be put into response if response is required. Can be omitted if response is not required. Request message_id if this message is a response to particular request. |
+| response_required | bool | Indicates that peer will wait for response on this message. |
+| register_peer | Register_peer  | Used to detect duplicate connections between ucs ans vsm. This must be the first message sent from ucs and VSM on new connection. In this case device_id==0 which means this message is for peer application not device. No device specific payloads can be present if device_id==0. |
+| register_device | Register_device |  |
+| unregister_device | Unregister_device |  |
+| device_command | Device_command | List of commands for device |
+| device_response | device_response | If this field is present then this is a response to previously sent request. If message_id is present, too then it contains the message_id from the corresponding request. |
+| device_status | Device_status | Device can send this message any time it wants to report some info to ucs. |
+
 @section register_device_message Register_device message
 
 |Field name| Type| Description|

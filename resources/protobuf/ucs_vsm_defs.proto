@@ -27,6 +27,20 @@ enum Status_code {
     STATUS_INVALID_SESSION_ID = 4;
     // Used to notify peer that command is in progress.
     STATUS_IN_PROGRESS = 5;
+    // Command require altimeter, but no alive altimeter detected
+    STATUS_ALTIMETER_REQUIRED = 6;
+    // Cannot register another device due to license constraint
+    STATUS_LICENSE_CONSTRAINT = 7;
+}
+
+// Response code sent by VSM to UCS
+enum Severity_code {
+    // Info
+    SEVERITY_INF = 0;
+    // Warning
+    SEVERITY_WARN = 1;
+    // Error
+    SEVERITY_ERR = 2;
 }
 
 // Used in property "vehicle_type" for Device of type DEVICE_TYPE_VEHICLE
@@ -58,6 +72,7 @@ enum Subsystem_type {
     SUBSYSTEM_TYPE_ADSB_RECEIVER = 8;    // Onboard adsb receiver for vehicle
     SUBSYSTEM_TYPE_ADSB_VEHICLE = 9;    // Used to report telemetry for devices of type DEVICE_TYPE_ADSB_VEHICLE
     SUBSYSTEM_TYPE_WEATHER_STATION = 10;
+    SUBSYSTEM_TYPE_VSM = 11;
 }
 
 // Built in device types natively supported by UgCS. Used in Register_device.type field.

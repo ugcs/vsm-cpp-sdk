@@ -16,6 +16,7 @@
 <xs:attribute name="enum" type="xs:string"/> <!-- used in field,param elements -->
 <xs:attribute name="display" type="xs:string"/> <!-- used in field elements -->
 <xs:attribute name="units" type="SI_Unit"/> <!-- this will get changed on the fly to xs:string if no strict-units command line option is used -->
+<xs:attribute name="instance" type="xs:boolean"/>
 <xs:attribute name="value"> <!-- used in entry elements -->
   <xs:simpleType>
     <xs:restriction base="xs:string">
@@ -100,9 +101,10 @@
     <xs:enumeration value="deg/2"/>    <!-- degrees/2 required from dagar for HIGH_LATENCY2 message-->
     <xs:enumeration value="deg/s"/>    <!-- degrees per second -->
     <xs:enumeration value="cdeg"/>     <!-- centidegrees -->
+    <xs:enumeration value="cdeg/s"/>     <!-- centidegrees per second -->
     <xs:enumeration value="degE5"/>    <!-- degrees * 10E5 -->
     <xs:enumeration value="degE7"/>    <!-- degrees * 10E7 -->
-    <xs:enumeration value="rpm"/>      <!-- rotations per second -->
+    <xs:enumeration value="rpm"/>      <!-- rotations per minute -->
     <!-- electricity -->
     <xs:enumeration value="V"/>        <!-- Volt -->
     <xs:enumeration value="cV"/>       <!-- centi-Volt -->
@@ -117,13 +119,17 @@
     <xs:enumeration value="mgauss"/>   <!-- milli-Gauss -->
     <!-- energy -->
     <xs:enumeration value="hJ"/>       <!-- hecto-Joule -->
+    <!-- power -->
+    <xs:enumeration value="W"/>        <!-- Watt -->
     <!-- force -->
     <xs:enumeration value="mG"/>       <!-- milli-G -->
     <!-- mass -->
     <xs:enumeration value="g"/>       <!-- grams -->
+    <xs:enumeration value="kg"/>      <!-- kilograms -->
     <!-- pressure -->
     <xs:enumeration value="Pa"/>       <!-- Pascal -->
     <xs:enumeration value="hPa"/>      <!-- hecto-Pascal -->
+    <xs:enumeration value="kPa"/>      <!-- kilo-Pascal -->
     <xs:enumeration value="mbar"/>     <!-- millibar -->
     <!-- ratio -->
     <xs:enumeration value="%"/>        <!-- percent -->
@@ -137,9 +143,12 @@
     <xs:enumeration value="MiB"/>      <!-- Mebibyte (1024*1024 bytes) -->
     <xs:enumeration value="MiB/s"/>    <!-- Mebibyte (1024*1024 bytes) per second -->
     <xs:enumeration value="bytes"/>    <!-- bytes -->
+    <xs:enumeration value="bytes/s"/>  <!-- bytes per second-->
     <xs:enumeration value="bits/s"/>   <!-- bits per second -->
     <xs:enumeration value="pix"/>      <!-- pixels -->
     <xs:enumeration value="dpix"/>     <!-- decipixels -->
+    <!-- flow -->
+    <xs:enumeration value="g/min"/>    <!-- grams/minute -->
   </xs:restriction>
 </xs:simpleType>
 
@@ -162,6 +171,7 @@
         <xs:attribute ref="index" use="required"/>
         <xs:attribute ref="label"/>
         <xs:attribute ref="units"/>
+        <xs:attribute ref="instance"/>
         <xs:attribute ref="enum" />
         <xs:attribute ref="decimalPlaces"/>
         <xs:attribute ref="increment"/>
@@ -202,6 +212,7 @@
         <xs:attribute ref="display" />
         <xs:attribute ref="units" />
         <xs:attribute ref="default" />
+        <xs:attribute ref="instance" />
     </xs:complexType>
 </xs:element>
 
@@ -225,6 +236,9 @@
     </xs:complexType>
 </xs:element>
 
+<!-- definition entry elements attributes (like the ones used on MAV_CMD for example) -->
+<xs:attribute name="bitmask" type="xs:boolean" default="false"/>
+
 <xs:element name="enum">
     <xs:complexType>
         <xs:sequence>
@@ -233,6 +247,7 @@
             <xs:element ref="entry" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute ref="name" use="required"/>
+        <xs:attribute ref="bitmask"/>
     </xs:complexType>
 </xs:element>
 

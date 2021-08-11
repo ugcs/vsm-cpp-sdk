@@ -56,6 +56,7 @@ class Device: public std::enable_shared_from_this<Device>
     DEFINE_COMMON_CLASS(Device, Device)
 
 public:
+
     // Constructor for device with provided processor and completion context.
     // If processor and completion_ctx are not specified then
     // Device will create it's own contexts and execute them in separate thread.
@@ -220,6 +221,12 @@ protected:
     void
     Add_status_message(const std::string& m);
 
+    void
+    Add_warning_message(const std::string& m);
+
+    void
+    Add_critical_message(const std::string& m);
+
     class Commit_scope {
     public:
         Commit_scope(Device& d):d(d) {}
@@ -251,6 +258,12 @@ private:
 
     // Status messages to be sent to ucs.
     std::list<std::string> device_status_messages;
+
+    // Status messages to be sent to ucs.
+    std::list<std::string> device_warning_messages;
+
+    // Status messages to be sent to ucs.
+    std::list<std::string> device_critical_messages;
 
     uint32_t my_handle = 0;
 

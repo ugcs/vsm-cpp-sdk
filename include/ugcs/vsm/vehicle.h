@@ -157,6 +157,7 @@ protected:
     Property::Ptr t_pitch = nullptr;
     Property::Ptr t_roll = nullptr;
     Property::Ptr t_heading = nullptr;
+    Property::Ptr t_health_rangefinder = nullptr;
     Property::Ptr t_gps_fix = nullptr;
     Property::Ptr t_satellite_count = nullptr;
     Property::Ptr t_altitude_origin = nullptr;
@@ -177,6 +178,11 @@ protected:
     Property::Ptr t_vibration_x = nullptr;
     Property::Ptr t_vibration_y = nullptr;
     Property::Ptr t_vibration_z = nullptr;
+    Property::Ptr t_video_stream_uri = nullptr;
+
+    Property::Ptr t_gimbal_roll = nullptr;
+    Property::Ptr t_gimbal_pitch = nullptr;
+    Property::Ptr t_gimbal_heading = nullptr;
 
     Vsm_command::Ptr c_mission_upload = nullptr;
     Vsm_command::Ptr c_auto = nullptr;
@@ -236,7 +242,7 @@ protected:
 
     int command_try_count = DEFAULT_COMMAND_TRY_COUNT;
     std::chrono::milliseconds command_timeout = DEFAULT_COMMAND_TIMEOUT;
-
+    
     // Predefined subsytems
     Subsystem::Ptr flight_controller;
     Subsystem::Ptr primary_camera;

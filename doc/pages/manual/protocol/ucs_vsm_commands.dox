@@ -60,7 +60,7 @@ By registering command from this list VSM notifies the UgCS that vehicle is capa
 |[repeat_servo](@ref c_repeat_servo) | FC | + | + | Repeat servo movement back an forth
 |[return_to_home](@ref c_return_to_home) | FC | - | + | Return to HOME position is supported
 |[select_as_video_source](@ref c_select_as_video_source) | Camera | - | + | Select this camera as video source
-|[set_fence](@ref c_set_fence) | FC | - | + | Create cylindrical fence around home location
+|[set_fence](@ref c_set_fence) | FC | - | + | Create polygonal fence or cylindrical fence around home location
 |[set_gear_state](@ref c_set_gear_state) | FC | - | + | Retract or release gear
 |[set_heading](@ref c_set_heading)| FC | + | - | Set vehicle heading|
 |[set_home](@ref c_set_home)| FC | + | - | Specify Home location|
@@ -409,6 +409,7 @@ Supported parameters:
 |wait_time| FIELD_SEMANTIC_NUMERIC | Seconds to wait at WP before preceeding to next WP|
 |heading| FIELD_SEMANTIC_HEADING | Vehicle heading at the WP |
 |follow_terrain| FIELD_SEMANTIC_BOOL | Vehicle moving to the WP in follow terrain mode. Altitude above terrain is calculated as altitude_amsl minus ground_elevation.  |
+|corner_radius| FIELD_SEMANTIC_NUMERIC | For an angle formed by three points A, B, C  if ‘turn_type’ of B is ‘bank_turn’, the aircraft is never reached B because it round the path around B. The ‘corner_radius’ for B is the distance between B and the point where the vehicle stops moving straight to B and starts to move in an arc. Only make sense if ‘turn_type’ is ‘bank_turn’. @image html images/corner_radius.png |
 
 @subsubsection turn_types Vehicle turn types
 |Name|Value|
@@ -506,15 +507,18 @@ There are no parameters for this command.
 
 Command ID: "set_fence"
 
-Description: Create cylindrical fence around Home Location. RTH will be triggered if vehicle tries to leave specified limits.  
+Description: Create polygonal fence oar\and cylindrical fence around Home Location. RTH will be triggered if vehicle tries to leave specified limits.  
 
 Parameters
 
 |Name|Type|Description|
 |---|---|---|
-|altitude_amsl| FIELD_SEMANTIC_ALTITUDE_AMSL | Fence altitude in meters |
-|altitude_origin| FIELD_SEMANTIC_ALTITUDE_AMSL | Altitude origin in meters AMSL. Typically this should be the HL altitude. |
-|radius| FIELD_SEMANTIC_NUMERIC | FEnce radius in meters. Max ground distance from Home Location |
+|altitude_amsl| FIELD_SEMANTIC_ALTITUDE_AMSL | Optional. Fence altitude in meters AMSL |
+|altitude_origin| FIELD_SEMANTIC_ALTITUDE_AMSL | Optional. Altitude origin in meters AMSL. Typically this should be the HL altitude. This altitude is sent by server along with amsl altitude |
+|altitude_raw| FIELD_SEMANTIC_ALTITUDE_RAW | Optional. Fence relative altitude in meters |
+|radius| FIELD_SEMANTIC_NUMERIC | Optional. Fence radius in meters. Max ground distance from Home Location |
+|latitudes| FIELD_SEMANTIC_LATITUDE | Optional. List of points latitudes that describe polygonal fence |
+|longitudes| FIELD_SEMANTIC_LONGITUDE | Optional. List of points longitudes that describe polygonal fence |
 
 @subsection c_set_gear_state Set Gear State
 

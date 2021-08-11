@@ -3,8 +3,8 @@
 
 #set (CMAKE_VERBOSE_MAKEFILE YES)
 
-set(SDK_VERSION_MAJOR 3)
-set(SDK_VERSION_MINOR 7)
+set(SDK_VERSION_MAJOR 4)
+set(SDK_VERSION_MINOR 4)
 set(SDK_VERSION_BUILD "dev")
 
 # Convert list to space-separated string.

@@ -107,6 +107,10 @@ message Device_status {
 
     // current command availability
     repeated Command_availability command_availability = 3;
+
+    // array with severity of status messages. Must be same size as status_messages or
+    // messages will be count as INFO
+    repeated Severity_code messages_severity = 4;
 }
 
 message Device_response {
@@ -158,6 +162,9 @@ message Device_command {
 
     // List of subcommands (E.g. mission items)
     repeated Device_command sub_commands = 3;
+
+    // Ask VSM to ignore this errors while command execution
+    repeated Status_code suppressErrors = 4;
 }
 
 message Telemetry_field {

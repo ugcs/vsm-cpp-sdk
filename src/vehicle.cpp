@@ -71,6 +71,8 @@ Vehicle::Vehicle(
     ADD_TS(target_altitude_raw, proto::FIELD_SEMANTIC_ALTITUDE_RAW);
     ADD_TS(fence_enabled, proto::FIELD_SEMANTIC_BOOL);
 
+    ADD_TS(health_rangefinder, proto::FIELD_SEMANTIC_BOOL);
+
     // Create command definitions.
 
     c_arm = flight_controller->Add_command("arm", false);
@@ -277,6 +279,8 @@ Vehicle::Vehicle(
     c_payload_control->Add_parameter("yaw");
     c_payload_control->Add_parameter("zoom_level", ugcs::vsm::Property::VALUE_TYPE_FLOAT);
 
+    t_video_stream_uri = primary_camera->Add_telemetry("video_stream_uri", proto::FIELD_SEMANTIC_STRING);
+
 // Create gimbal.
     primary_gimbal = Add_subsystem(proto::SUBSYSTEM_TYPE_GIMBAL);
 
@@ -293,6 +297,10 @@ Vehicle::Vehicle(
     prop = c_direct_payload_control->Add_parameter("zoom", Property::VALUE_TYPE_FLOAT);
     prop->Max_value()->Set_value(1);
     prop->Min_value()->Set_value(-1);
+
+    t_gimbal_roll = primary_gimbal->Add_telemetry("roll", proto::FIELD_SEMANTIC_ROLL);
+    t_gimbal_pitch = primary_gimbal->Add_telemetry("pitch", proto::FIELD_SEMANTIC_PITCH);
+    t_gimbal_heading = primary_gimbal->Add_telemetry("heading", proto::FIELD_SEMANTIC_HEADING);
 
     auto props = ugcs::vsm::Properties::Get_instance().get();
 

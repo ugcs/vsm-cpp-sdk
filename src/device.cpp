@@ -242,6 +242,19 @@ Device::Commit_to_ucs(bool log_message)
     while (!device_status_messages.empty()) {
         report->add_status_messages(device_status_messages.front());
         device_status_messages.pop_front();
+        report->add_messages_severity(ugcs::vsm::proto::Severity_code::SEVERITY_INF);
+    }
+
+    while (!device_warning_messages.empty()) {
+        report->add_status_messages(device_warning_messages.front());
+        device_warning_messages.pop_front();
+        report->add_messages_severity(ugcs::vsm::proto::Severity_code::SEVERITY_WARN);
+    }
+
+    while (!device_critical_messages.empty()) {
+        report->add_status_messages(device_critical_messages.front());
+        device_critical_messages.pop_front();
+        report->add_messages_severity(ugcs::vsm::proto::Severity_code::SEVERITY_ERR);
     }
 
     if (    report->telemetry_fields_size()
@@ -271,6 +284,18 @@ void
 Device::Add_status_message(const std::string& m)
 {
     device_status_messages.push_back(m);
+}
+
+void
+Device::Add_warning_message(const std::string& m)
+{
+    device_warning_messages.push_back(m);
+}
+
+void
+Device::Add_critical_message(const std::string& m)
+{
+    device_critical_messages.push_back(m);
 }
 
 void
